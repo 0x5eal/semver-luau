@@ -1,0 +1,30 @@
+name = "compeydev/semver"
+version = "0.1.0"
+description = "Strongly typed semver (https://semver.org) parser for Luau"
+authors = ["Erica Marigold <hi@devcomp.xyz>"]
+repository = "https://github.com/0x5eal/semver-luau.git"
+license = "MIT"
+includes = [
+    "lib/**",
+    "pesde.toml",
+    "README.md",
+    "LICENSE.md",
+]
+
+[scripts]
+test = ".lune/test"
+
+[target]
+environment = "luau"
+lib = "lib/init.luau"
+
+[dependencies]
+option = { name = "lukadev_0/option", version = "^1.2.0" }
+result = { name = "lukadev_0/result", version = "^1.2.0" }
+
+[dev_dependencies]
+frktest = { repo = "https://github.com/CompeyDev/frktest-pesde.git", rev = "2259e27" }
+
+[indices]
+default = "https://github.com/daimond113/pesde-index.git"
+staging = "https://git.devcomp.xyz/pesde-staging/index.git"
