@@ -1,0 +1,4 @@
+# Pesde dependencies
+luau_packages/
+lune_packages/
+pesde.lock
