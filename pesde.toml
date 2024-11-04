@@ -5,7 +5,7 @@ authors = ["Erica Marigold <hi@devcomp.xyz>"]
 repository = "https://github.com/0x5eal/semver-luau.git"
 license = "MIT"
 includes = [
-    "lib/**",
+    "lib",
     "pesde.toml",
     "README.md",
     "LICENSE.md",
