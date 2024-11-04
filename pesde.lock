@@ -1,0 +1,54 @@
+name = "compeydev/semver"
+version = "0.1.0"
+target = "luau"
+
+[graph."compeydev/frktest"."0.0.2 lune"]
+direct = ["frktest", { repo = "https://github.com/CompeyDev/frktest-pesde.git", rev = "2259e27" }]
+ty = "dev"
+
+[graph."compeydev/frktest"."0.0.2 lune".target]
+environment = "lune"
+lib = "src/init.luau"
+
+[graph."compeydev/frktest"."0.0.2 lune".pkg_ref]
+ref_ty = "git"
+repo = "https://github.com/CompeyDev/frktest-pesde.git"
+tree_id = "385a84d8822c14874597ee436bfd9ba94cb0baac"
+new_structure = true
+target = "lune"
+
+[graph."lukadev_0/option"."1.2.0 luau"]
+direct = ["option", { name = "lukadev_0/option", version = "^1.2.0" }]
+ty = "standard"
+
+[graph."lukadev_0/option"."1.2.0 luau".target]
+environment = "luau"
+lib = "lib/init.luau"
+
+[graph."lukadev_0/option"."1.2.0 luau".pkg_ref]
+ref_ty = "pesde"
+name = "lukadev_0/option"
+version = "1.2.0"
+index_url = "https://github.com/daimond113/pesde-index"
+
+[graph."lukadev_0/option"."1.2.0 luau".pkg_ref.target]
+environment = "luau"
+lib = "lib/init.luau"
+
+[graph."lukadev_0/result"."1.2.0 luau"]
+direct = ["result", { name = "lukadev_0/result", version = "^1.2.0" }]
+ty = "standard"
+
+[graph."lukadev_0/result"."1.2.0 luau".target]
+environment = "luau"
+lib = "lib/init.luau"
+
+[graph."lukadev_0/result"."1.2.0 luau".pkg_ref]
+ref_ty = "pesde"
+name = "lukadev_0/result"
+version = "1.2.0"
+index_url = "https://github.com/daimond113/pesde-index"
+
+[graph."lukadev_0/result"."1.2.0 luau".pkg_ref.target]
+environment = "luau"
+lib = "lib/init.luau"
