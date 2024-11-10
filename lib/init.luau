@@ -91,7 +91,7 @@ local PRERELEASE_LEX_ORDER: { [PreleaseType]: number } = {
 }
 
 function Semver.parse(ver: string): SemverResult<SemverImpl>
-	local components = string.split(ver, ".")
+	local components = string.split(if stringStartsWith(ver, "v") then string.sub(ver, 2) else ver, ".")
 	if #components < 3 then
 		return Result.Err({
 			msg = Option.Some(`Expected MAJOR.MINOR.PATCH format, missing {#components} / 3 components`),
