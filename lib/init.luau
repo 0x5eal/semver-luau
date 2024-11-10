@@ -72,7 +72,7 @@ export type SemverError = {
 }
 export type SemverErrorKind = ParseError | {}
 export type ParseError =
-	{ id: "MandatoryComponentMissing", components: { string } }
+	| { id: "MandatoryComponentMissing", components: { string } }
 	| {
 		id: "InvalidComponentType",
 		component: "major" | "minor" | "patch",
