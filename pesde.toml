@@ -23,7 +23,7 @@ option = { name = "lukadev_0/option", version = "^1.2.0" }
 result = { name = "lukadev_0/result", version = "^1.2.0" }
 
 [dev_dependencies]
-frktest = { name = "itsfrank/frktest", version = "^0.0.2" }
+frktest = { name = "itsfrank/frktest", target = "lune", version = "^0.0.2" }
 
 [indices]
 default = "https://github.com/daimond113/pesde-index.git"
