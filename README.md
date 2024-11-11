@@ -1,8 +1,7 @@
 # semver-luau
 
-<a href="https://discord.gg/ATVVsNNv3u"><img alt="Discord" src="https://img.shields.io/discord/385151591524597761?style=plastic&logo=discord&color=%235865F2"></a>
-<a href="https://lune-org.github.io/docs"><img alt="Lune" src="https://github.com/0x5eal/semver-luau/blob/main/.lune/assets/powered-by-lune.svg"></a>
-<!-- TODO: Add CI status badge -->
+<a href="https://discord.gg/ATVVsNNv3u"><img alt="Discord" src="https://img.shields.io/discord/385151591524597761?style=plastic&logo=discord&color=%235865F2" /></a>
+<a href="https://lune-org.github.io/docs"><img alt="Lune" src="https://github.com/0x5eal/semver-luau/blob/main/.lune/assets/powered-by-lune.svg" /></a>
 
 A Luau library to parse and compare [Semantic Versioning] compatible version numbers. 
 
