@@ -1,4 +1,4 @@
-name = "compeydev/semver"
+name = "0x5eal/semver"
 version = "0.1.0"
 description = "Strongly typed semver (https://semver.org) parser for Luau"
 authors = ["Erica Marigold <hi@devcomp.xyz>"]
