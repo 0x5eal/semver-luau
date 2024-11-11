@@ -106,7 +106,7 @@ export type Version = {
 }
 
 --[=[
-	@type SemverResult<T, E = SemverError> Result<T, E>
+	@type SemverResult<T, E = SemverError> = Result<T, E>
 	@within Semver
 ]=]
 export type SemverResult<T, E = SemverError> = Result<T, E>
