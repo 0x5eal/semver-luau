@@ -18,12 +18,12 @@ test = ".lune/test"
 environment = "luau"
 lib = "lib/init.luau"
 
-[dependencies]
+[peer_dependencies]
 option = { name = "lukadev_0/option", version = "^1.2.0" }
 result = { name = "lukadev_0/result", version = "^1.2.0" }
 
 [dev_dependencies]
-frktest = { repo = "https://github.com/CompeyDev/frktest-pesde.git", rev = "2259e27" }
+frktest = { name = "itsfrank/frktest", version = "^0.0.2" }
 
 [indices]
 default = "https://github.com/daimond113/pesde-index.git"
