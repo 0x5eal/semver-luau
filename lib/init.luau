@@ -46,17 +46,57 @@ local function getInvalidTypeName(invalidComponent: string): InvalidTypes
 	return presentType
 end
 
+--[=[
+	@class Semver
+
+	A Luau library to parse and compare [Semantic Versioning](https://semver.org) compatible version numbers. 
+
+	Semantic Versioning (Semver) is a versioning scheme for software that uses a three-part version number format, `MAJOR.MINOR.PATCH`.
+	Additionally, Semver defines rules on when to increment each of these parts: 
+
+	- `MAJOR` version increments indicate incompatible API changes.
+	- `MINOR` version increments indicate the addition of functionality in a backward-compatible manner.
+	- `PATCH` version increments indicate backward-compatible bug fixes.
+
+	Semver also allows for optional pre-release and build metadata tags.
+
+	For a detailed set of guidelines that Semver version numbers follow, visit the previously linked website containing the full 
+	Semver specification.
+]=]
 local Semver = {}
 
 export type SemverImpl = typeof(setmetatable({} :: Version, Semver))
 
+--[=[
+	@type PreleaseType "alpha" | "beta" | "rc"
+	@within Semver
+
+	A type representing the different prerelease stages
+]=]
 export type PreleaseType = "alpha" | "beta" | "rc"
 
+--[=[
+	@interface PrereleaseVersion
+	@within Semver
+
+	@field type PreleaseType -- The type of prerelease stage
+	@field ordinal Option<number> -- Optional ordinal number for the prerelease
+]=]
 export type PrereleaseVersion = {
 	type: PreleaseType,
 	ordinal: Option<number>,
 }
 
+--[=[
+	@interface Version
+	@within Semver
+
+	@field major number -- Major version number
+	@field minor number -- Minor version number
+	@field patch number -- Patch version number
+	@field buildMetadata Option<string> -- Optional build metadata
+	@field prerelease Option<PrereleaseVersion> -- Optional prerelease information
+]=]
 export type Version = {
 	major: number,
 	minor: number,
@@ -65,14 +105,47 @@ export type Version = {
 	prerelease: Option<PrereleaseVersion>,
 }
 
+--[=[
+	@type SemverResult<T, E = SemverError> Result<T, E>
+	@within Semver
+]=]
 export type SemverResult<T, E = SemverError> = Result<T, E>
+
+--[=[
+	@interface SemverError
+	@within Semver
+
+	@field msg Option<string> -- Optional error message
+	@field kind SemverErrorKind -- The kind of error that occurred
+]=]
 export type SemverError = {
 	msg: Option<string>,
 	kind: SemverErrorKind,
 }
+
+--[=[
+	@type SemverErrorKind ParseError | {}
+	@within Semver
+	
+	All the possible error types that can be returned
+]=]
 export type SemverErrorKind = ParseError | {}
+
+--[=[
+	@type ParseError { id: string, component: string?, expected: string?, got: string?, components: string?, type: string? }
+	@within Semver
+
+	All the possible error types that can occur during semver parsing:
+
+	* `MandatoryComponentMissing`: When required version components are missing
+	* `InvalidComponentType`: When a version component has an invalid type
+	* `LeadingZerosPresent`: When a version component has leading zeros
+	* `InvalidIdentifierCharacter`: When prerelease or metadata contains invalid characters
+	* `InvalidPrereleaseType`: When prerelease type is not alpha, beta, or rc
+	* `InvalidPrereleaseOrdinalType`: When prerelease ordinal is not a number
+]=]
 export type ParseError =
-	| { id: "MandatoryComponentMissing", components: { string } }
+	{ id: "MandatoryComponentMissing", components: { string } }
 	| {
 		id: "InvalidComponentType",
 		component: "major" | "minor" | "patch",
@@ -84,12 +157,28 @@ export type ParseError =
 	| { id: "InvalidPrereleaseType", component: "prerelease", type: string }
 	| { id: "InvalidPrereleaseOrdinalType", expected: "number", got: "char" | "symbol" }
 
+--[=[
+	@prop PRERELEASE_LEX_ORDER table
+	@within Semver
+	@private
+
+	Lexicographical ordering for prerelease types
+]=]
 local PRERELEASE_LEX_ORDER: { [PreleaseType]: number } = {
 	alpha = 1,
 	beta = 2,
 	rc = 3,
 }
 
+--[=[
+	@within Semver
+	@function parse
+
+	Parses a version string into a Semver instance
+
+	@param ver string -- The version string to parse
+	@return SemverResult<SemverImpl> -- Result containing either the parsed Semver or an error
+]=]
 function Semver.parse(ver: string): SemverResult<SemverImpl>
 	local components = string.split(if stringStartsWith(ver, "v") then string.sub(ver, 2) else ver, ".")
 	if #components < 3 then
@@ -249,7 +338,6 @@ function Semver.parse(ver: string): SemverResult<SemverImpl>
 
 	return Result.Ok(setmetatable(parsed :: Version, Semver))
 end
-
 local function prereleaseEq(leftPrerelease: PrereleaseVersion?, rightPrerelease: PrereleaseVersion?): boolean
 	if leftPrerelease == nil and rightPrerelease == nil then
 		return true
@@ -305,4 +393,5 @@ function Semver.__le(left: SemverImpl, right: SemverImpl): boolean
 		elseif left.patch ~= right.patch then left.patch <= right.patch
 		else prereleaseLe(left.prerelease:unwrapOrNil(), right.prerelease:unwrapOrNil())
 end
+
 return Semver
