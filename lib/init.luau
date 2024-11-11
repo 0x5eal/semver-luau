@@ -338,6 +338,7 @@ function Semver.parse(ver: string): SemverResult<SemverImpl>
 
 	return Result.Ok(setmetatable(parsed :: Version, Semver))
 end
+
 local function prereleaseEq(leftPrerelease: PrereleaseVersion?, rightPrerelease: PrereleaseVersion?): boolean
 	if leftPrerelease == nil and rightPrerelease == nil then
 		return true
