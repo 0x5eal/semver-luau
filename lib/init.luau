@@ -164,11 +164,11 @@ export type ParseError =
 
 	Lexicographical ordering for prerelease types
 ]=]
-local PRERELEASE_LEX_ORDER: { [PreleaseType]: number } = {
+local PRERELEASE_LEX_ORDER: { [PreleaseType]: number } = table.freeze({
 	alpha = 1,
 	beta = 2,
 	rc = 3,
-}
+})
 
 --[=[
 	@within Semver
