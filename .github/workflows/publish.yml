@@ -1,0 +1,45 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Download pesde
+        run: |
+          # Figure out the latest release
+          latest_release=$(curl -s https://api.github.com/repos/daimond113/pesde/releases | jq '[.[] | select(.prerelease == true or .prerelease == false)][0]')
+          download_url=$(echo "$latest_release" | jq -r '.assets[] | select(.name | endswith("linux-x86_64.tar.gz")) | .browser_download_url')
+
+          # Download and extract the linux-x86_64 artifact
+          curl -L -o /tmp/pesde.tar.gz "$download_url"
+          tar -xzvf /tmp/pesde.tar.gz
+          chmod +x pesde
+
+          # Install, cleanup and set PATH
+          ./pesde self-install
+          rm ./pesde
+          echo "$HOME/.pesde/bin" >> $GITHUB_PATH
+
+      - name: Authenticate into pesde registry
+        run: |
+          echo '[tokens]' > $HOME/.pesde/config.toml
+          echo '"https://github.com/daimond113/pesde-index.git" = "${{ secrets.PESDE_TOKEN }}"' >> $HOME/.pesde/config.toml
+
+      - name: Update version
+        run: |
+          sed -i "s/version = .*/version = \"${{ steps.get_version.outputs.VERSION }}\"/" pesde.toml
+
+      - name: Publish
+        run: pesde publish --dry-run
