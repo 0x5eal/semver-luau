@@ -11,14 +11,14 @@ local frktest = require("@pkg/frktest")
 local require = require :: (path: string) -> () -> ()
 
 if process.args[1] ~= nil then
-	require("../tests/" .. process.args[1])()
+        require("../tests/" .. process.args[1])()
 else
-	for _, test in fs.readDir("tests") do
-		require("../tests/" .. test)()
-	end
+        for _, test in fs.readDir("tests") do
+                require("../tests/" .. test)()
+        end
 end
 
-frktest.reporters.lune.init()
-if not frktest.core.run() then
-	process.exit(1)
+frktest._reporters.lune_console_reporter.init()
+if not frktest.run() then
+        process.exit(1)
 end
