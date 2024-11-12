@@ -12,10 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get version from tag
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
       - name: Download pesde
         run: |
           # Figure out the latest release
@@ -36,10 +32,6 @@ jobs:
         run: |
           echo '[tokens]' > $HOME/.pesde/config.toml
           echo '"https://github.com/daimond113/pesde-index.git" = "${{ secrets.PESDE_TOKEN }}"' >> $HOME/.pesde/config.toml
-
-      - name: Update version
-        run: |
-          sed -i "s/version = .*/version = \"${{ steps.get_version.outputs.VERSION }}\"/" pesde.toml
 
       - name: Publish
         run: pesde publish --dry-run
