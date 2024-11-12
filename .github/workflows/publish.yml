@@ -29,13 +29,7 @@ jobs:
           echo "$HOME/.pesde/bin" >> $GITHUB_PATH
 
       - name: Authenticate into pesde registry
-        run: |
-          cat > $HOME/.pesde/config.toml << 'EOF'
-          default_index = "https://github.com/daimond113/pesde-index"
-          scripts_repo = "https://github.com/daimond113/pesde-scripts"
+        run: pesde auth login --token ${{ secrets.PESDE_TOKEN }}
 
-          [tokens]
-          "https://github.com/daimond113/pesde-index.git" = "${{ secrets.PESDE_TOKEN }}"
-          EOF
       - name: Publish
         run: pesde publish -y
