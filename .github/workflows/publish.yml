@@ -38,4 +38,4 @@ jobs:
           "https://github.com/daimond113/pesde-index.git" = "${{ secrets.PESDE_TOKEN }}"
           EOF
       - name: Publish
-        run: pesde publish --dry-run
+        run: pesde publish -y
