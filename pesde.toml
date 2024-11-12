@@ -26,5 +26,5 @@ result = { name = "lukadev_0/result", version = "^1.2.0" }
 frktest = { name = "itsfrank/frktest", target = "lune", version = "^0.0.2" }
 
 [indices]
-default = "https://github.com/daimond113/pesde-index.git"
-staging = "https://git.devcomp.xyz/pesde-staging/index.git"
+default = "https://github.com/daimond113/pesde-index"
+staging = "https://git.devcomp.xyz/pesde-staging/index"
