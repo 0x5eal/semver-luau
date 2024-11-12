@@ -30,9 +30,12 @@ jobs:
 
       - name: Authenticate into pesde registry
         run: |
-          echo -e "default_index = "https://github.com/daimond113/pesde-index"\n$(cat $HOME/.pesde/config.toml)" > $HOME/.pesde/config.toml
-          echo '[tokens]' > $HOME/.pesde/config.toml
-          echo '"https://github.com/daimond113/pesde-index.git" = "${{ secrets.PESDE_TOKEN }}"' >> $HOME/.pesde/config.toml
+          cat > $HOME/.pesde/config.toml << 'EOF'
+          default_index = "https://github.com/daimond113/pesde-index"
+          scripts_repo = "https://github.com/daimond113/pesde-scripts"
 
+          [tokens]
+          "https://github.com/daimond113/pesde-index.git" = "${{ secrets.PESDE_TOKEN }}"
+          EOF
       - name: Publish
         run: pesde publish --dry-run
