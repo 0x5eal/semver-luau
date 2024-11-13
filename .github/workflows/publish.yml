@@ -1,0 +1,35 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download pesde
+        run: |
+          # Figure out the latest release
+          latest_release=$(curl -s https://api.github.com/repos/daimond113/pesde/releases | jq '[.[] | select(.prerelease == true or .prerelease == false)][0]')
+          download_url=$(echo "$latest_release" | jq -r '.assets[] | select(.name | endswith("linux-x86_64.tar.gz")) | .browser_download_url')
+
+          # Download and extract the linux-x86_64 artifact
+          curl -L -o /tmp/pesde.tar.gz "$download_url"
+          tar -xzvf /tmp/pesde.tar.gz
+          chmod +x pesde
+
+          # Install, cleanup and set PATH
+          ./pesde self-install
+          rm ./pesde
+          echo "$HOME/.pesde/bin" >> $GITHUB_PATH
+
+      - name: Authenticate into pesde registry
+        run: pesde auth login --token ${{ secrets.PESDE_TOKEN }}
+
+      - name: Publish
+        run: pesde publish -y
