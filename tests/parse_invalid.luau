@@ -97,7 +97,7 @@ return function()
 
 		test.case("Rejects invalid prerelease ordinals", function()
 			-- Test with character ordinal
-			local res = Semver.parse("1.2.3-beta.a")
+			local res = Semver.parse("1.2.3-beta.abc")
 			check.is_true(res:isErr())
 			check.table.contains(res:unwrapErr(), {
 				kind = {
