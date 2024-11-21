@@ -296,6 +296,8 @@ function Semver.parse(ver: string): SemverResult<SemverImpl>
 					local potentialOrdinalNumber, potentialBuildMetadata = string.match(components[4], "(%d)+(.*)")
 					if potentialOrdinalNumber == nil then
 						return badPrereleaseType(components[4])
+						-- TODO: If there are components after the 4th index, we
+						-- should error
 					end
 
 					if potentialBuildMetadata ~= nil then
@@ -393,6 +395,26 @@ function Semver.__le(left: SemverImpl, right: SemverImpl): boolean
 		elseif left.minor ~= right.minor then left.minor <= right.minor
 		elseif left.patch ~= right.patch then left.patch <= right.patch
 		else prereleaseLe(left.prerelease:unwrapOrNil(), right.prerelease:unwrapOrNil())
+end
+
+function Semver.__tostring(self: SemverImpl): string
+	local base = `{self.major}.{self.minor}.{self.patch}`
+	local prerelease = self.prerelease
+		:map(function(prerelease: PrereleaseVersion)
+			return `-{prerelease.type}{prerelease.ordinal
+				:map(function(ord: number)
+					return `.{ord}`
+				end)
+				:unwrapOr("")}`
+		end)
+		:unwrapOr("")
+	local build = self.buildMetadata
+		:map(function(buildMetadata: string)
+			return `+{buildMetadata}`
+		end)
+		:unwrapOr("")
+
+	return base .. prerelease .. build
 end
 
 return Semver
