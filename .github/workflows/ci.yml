@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tooling
+        uses: CompeyDev/setup-rokit@v0.1.2
+        with:
+          cache: true
+
+      - name: Check formatting
+        run: lune run fmt -- --check
+
+  test:
+    needs: ["fmt"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tooling
+        uses: CompeyDev/setup-rokit@v0.1.2
+        with:
+          cache: true
+
+      - name: Install pesde
+        uses: ./.github/workflows/pesde.yml
+        with:
+          pesde-token: ${{ secrets.PESDE_TOKEN }}
+
+      - name: Install dependencies
+        run: pesde install
+
+      - name: Run tests
+        run: lune run tests
+
+  typecheck:
+    needs: ["test"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tooling
+        uses: CompeyDev/setup-rokit@v0.1.2
+        with:
+          cache: true
+
+      - name: Install pesde
+        uses: ./.github/workflows/pesde.yml
+        with:
+          pesde-token: ${{ secrets.PESDE_TOKEN }}
+
+      - name: Install dependencies
+        run: pesde install
+
+      - name: Typecheck
+        run: lune run typecheck
