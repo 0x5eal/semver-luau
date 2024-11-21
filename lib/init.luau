@@ -293,11 +293,9 @@ function Semver.parse(ver: string): SemverResult<SemverImpl>
 					-- b) The component has build metadata after prerelease info
 					-- Here, we handle both those cases
 
-					local potentialOrdinalNumber, potentialBuildMetadata = string.match(components[4], "(%d)+(.*)")
+					local potentialOrdinalNumber, potentialBuildMetadata = string.match(components[4], "(.*)+(.*)")
 					if potentialOrdinalNumber == nil then
 						return badPrereleaseType(components[4])
-						-- TODO: If there are components after the 4th index, we
-						-- should error
 					end
 
 					if potentialBuildMetadata ~= nil then
@@ -315,6 +313,14 @@ function Semver.parse(ver: string): SemverResult<SemverImpl>
 							return badPrereleaseType(components[4])
 						end
 					end
+				elseif #components > 4 then
+					-- The ordinal component was bad, we should error
+					local badPrerelease = ""
+					for i = 4, #components do
+						badPrerelease ..= "." .. components[i]
+					end
+
+					return badPrereleaseType(badPrerelease)
 				end
 
 				prereleaseOrdinal = Option.Some(ordinalNum :: number) :: Option<number>
