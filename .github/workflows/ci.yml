@@ -21,6 +21,14 @@ jobs:
         with:
           cache: true
 
+      - name: Install pesde
+        uses: ./.github/workflows/pesde.yml
+        with:
+          pesde-token: ${{ secrets.PESDE_TOKEN }}
+
+      - name: Install dependencies
+        run: pesde install
+
       - name: Check formatting
         run: lune run fmt -- --check
 
