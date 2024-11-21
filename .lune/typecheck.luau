@@ -8,7 +8,7 @@ process.exit(
 	CommandBuilder.new("luau-lsp")
 		:withArg("analyze")
 		:withArgs({ "--settings", ".vscode/settings.json" })
-		:withArgs({ "--ignore", "'./**/.pesde/**'" })
+		:withArgs({ "--ignore", "'**/.pesde/**'" })
 		:withArg(".")
 		:withStdioStrategy("forward")
 		:exec().code
