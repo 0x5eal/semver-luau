@@ -26,4 +26,4 @@ runs:
     - name: Authenticate into pesde registry
       if: inputs.pesde-token != ''
       shell: bash
-      run: pesde auth login --token ${{ inputs.pesde-token }}
+      run: pesde auth login --token "${{ inputs.pesde-token }}"
