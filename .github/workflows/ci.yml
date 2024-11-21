@@ -52,6 +52,9 @@ jobs:
       - name: Install dependencies
         run: pesde install
 
+      - name: Setup lune typedefs
+        run: lune setup
+
       - name: Typecheck
         run: lune run typecheck
 
@@ -75,8 +78,5 @@ jobs:
       - name: Install dependencies
         run: pesde install
 
-      - name: Setup lune typedefs
-        run: lune setup
-
       - name: Run tests
-        run: lune run tests
+        run: lune run test
