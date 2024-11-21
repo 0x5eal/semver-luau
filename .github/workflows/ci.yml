@@ -22,7 +22,7 @@ jobs:
           cache: true
 
       - name: Install pesde
-        uses: ./.github/workflows/pesde.yml
+        uses: ./.github/actions/setup-pesde
         with:
           pesde-token: ${{ secrets.PESDE_TOKEN }}
 
@@ -45,7 +45,7 @@ jobs:
           cache: true
 
       - name: Install pesde
-        uses: ./.github/workflows/pesde.yml
+        uses: ./.github/actions/setup-pesde
         with:
           pesde-token: ${{ secrets.PESDE_TOKEN }}
 
@@ -68,7 +68,7 @@ jobs:
           cache: true
 
       - name: Install pesde
-        uses: ./.github/workflows/pesde.yml
+        uses: ./.github/actions/setup-pesde
         with:
           pesde-token: ${{ secrets.PESDE_TOKEN }}
 
