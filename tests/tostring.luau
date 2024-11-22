@@ -48,7 +48,10 @@ return function()
 				},
 			}
 
-			for expectedString, version in versionMap do
+			-- FIXME: unknown usage here is because these types are too complex for
+			-- Luau to typecheck properly, we cast it manually since the above
+			-- map is typed properly anyway
+			for expectedString, version: unknown in versionMap do
 				local constructed = Semver.new(version :: Semver.Version)
 				local stringified = tostring(constructed)
 
