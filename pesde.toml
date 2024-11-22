@@ -1,15 +1,10 @@
 name = "0x5eal/semver"
-version = "0.1.0"
+version = "0.1.1"
 description = "Strongly typed semver (https://semver.org) parser for Luau"
 authors = ["Erica Marigold <hi@devcomp.xyz>"]
 repository = "https://github.com/0x5eal/semver-luau.git"
 license = "MIT"
-includes = [
-    "lib",
-    "pesde.toml",
-    "README.md",
-    "LICENSE.md",
-]
+includes = ["lib", "pesde.toml", "README.md", "LICENSE.md"]
 
 [scripts]
 test = ".lune/test"
