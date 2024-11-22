@@ -172,6 +172,19 @@ local PRERELEASE_LEX_ORDER: { [PreleaseType]: number } = table.freeze({
 
 --[=[
 	@within Semver
+	@function new
+
+	Creates a new Semver instance from a [Version]
+
+	@param ver Version -- The version to create a Semver instance from
+	@return SemverImpl -- The new Semver instance
+]=]
+function Semver.new(ver: Version): SemverImpl
+	return setmetatable(ver, Semver)
+end
+
+--[=[
+	@within Semver
 	@function parse
 
 	Parses a version string into a Semver instance
@@ -344,7 +357,7 @@ function Semver.parse(ver: string): SemverResult<SemverImpl>
 		end
 	end
 
-	return Result.Ok(setmetatable(parsed :: Version, Semver))
+	return Result.Ok(Semver.new(parsed))
 end
 
 local function prereleaseEq(leftPrerelease: PrereleaseVersion?, rightPrerelease: PrereleaseVersion?): boolean
