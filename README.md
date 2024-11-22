@@ -28,17 +28,17 @@ Invalid versions should return a [`Result`] with the respective error. If not, t
 filing an issue [here](https://github.com/0x5eal/semver-luau/issues).
 
 ```luau
-local semver = require("semver")
+local Semver = require("semver")
 
 -- Parse version strings
-local v1 = semver.parse("1.2.3"):unwrap() --[[
+local v1 = Semver.parse("1.2.3"):unwrap() --[[
   major = 1,
   minor = 2,
   patch = 3,
   buildMetadata = Option::None,
   prerelease = Option::None
 ]]
-local v2 = semver.parse("5.12.0+build.1731248766"):unwrap() --[[
+local v2 = Semver.parse("5.12.0+build.1731248766"):unwrap() --[[
   major = 5,
   minor = 12,
   patch = 0,
