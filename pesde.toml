@@ -19,8 +19,6 @@ result = { name = "lukadev_0/result", version = "^1.2.0" }
 
 [dev_dependencies]
 frktest = { name = "itsfrank/frktest", target = "lune", version = "^0.0.2" }
-stylua = { name = "pesde/stylua", version = "^2.0.1", target = "lune" }
-luau_lsp = { name = "pesde/luau_lsp", version = "^1.36.0", target = "lune" }
 
 [indices]
 default = "https://github.com/daimond113/pesde-index"
