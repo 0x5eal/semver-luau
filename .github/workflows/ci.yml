@@ -17,9 +17,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install pesde
-        uses: ./.github/actions/setup-pesde
+        uses: 2jammers/setup-pesde@v0.2.0
         with:
-          pesde-token: ${{ secrets.PESDE_TOKEN }}
+          lune-version: v0.8.9
+          pesde-version: v0.5.0-rc.14
+          token: ${{ secrets.PESDE_TOKEN }}
 
       - name: Install dependencies
         run: pesde install
