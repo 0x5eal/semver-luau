@@ -23,7 +23,7 @@ local STYLE = table.freeze({
 
 --- Clears a the previous line, and moves to its beginning
 local function clear_last_line(): ()
-	return stdio.write("\x1b[A\x1b[K\x1b[0G\x1b[?25h")
+	return stdio.write("\x1b[A\x1b[K\x1b[0G")
 end
 
 local ReporterExt = {}
