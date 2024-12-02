@@ -12,7 +12,7 @@ runs:
     - name: Download pesde
       shell: bash
       run: |
-        latest_release=$(curl -s https://api.github.com/repos/daimond113/pesde/releases | jq '[.[] | select(.prerelease == true or .prerelease == false)][0]')
+        latest_release=$(curl -s https://api.github.com/repos/pesde-pkg/pesde/releases | jq '[.[] | select(.prerelease == true or .prerelease == false)][0]')
         download_url=$(echo "$latest_release" | jq -r '.assets[] | select(.name | endswith("linux-x86_64.tar.gz")) | .browser_download_url')
 
         curl -L -o /tmp/pesde.tar.gz "$download_url"
