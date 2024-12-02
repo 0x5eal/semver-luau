@@ -16,11 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install tooling
-        uses: CompeyDev/setup-rokit@v0.1.2
-        with:
-          cache: true
-
       - name: Install pesde
         uses: ./.github/actions/setup-pesde
         with:
