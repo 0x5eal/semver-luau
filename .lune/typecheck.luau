@@ -6,6 +6,7 @@ local CommandBuilder = require("./exec")
 
 process.exit(
 	CommandBuilder.new("luau-lsp")
+		:withArg("--")
 		:withArg("analyze")
 		:withArgs({ "--settings", ".vscode/settings.json" })
 		:withArgs({ "--ignore", "'**/.pesde/**'" })
