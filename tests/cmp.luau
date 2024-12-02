@@ -1,5 +1,4 @@
 local frktest = require("@pkg/frktest")
-local test = frktest.test
 local check = frktest.assert.check
 
 local Option = require("../luau_packages/option")
@@ -7,7 +6,7 @@ type Option<T> = Option.Option<T>
 
 local Semver = require("../lib")
 
-return function()
+return function(test: typeof(frktest.test))
 	test.suite("Semver comparison tests", function()
 		test.case("Basic version comparisons", function()
 			local v1 = Semver.parse("1.2.3"):unwrap()
