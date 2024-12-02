@@ -1,10 +1,9 @@
 local frktest = require("@pkg/frktest")
-local test = frktest.test
 local check = frktest.assert.check
 
 local Semver = require("../lib")
 
-return function()
+return function(test: typeof(frktest.test))
 	test.suite("Invalid semver parsing tests", function()
 		test.case("Rejects missing components", function()
 			local res = Semver.parse("1.2")
