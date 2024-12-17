@@ -145,7 +145,7 @@ export type SemverErrorKind = ParseError | {}
 	* `InvalidPrereleaseOrdinalType`: When prerelease ordinal is not a number
 ]=]
 export type ParseError =
-	{ id: "MandatoryComponentMissing", components: { string } }
+	| { id: "MandatoryComponentMissing", components: { string } }
 	| {
 		id: "InvalidComponentType",
 		component: "major" | "minor" | "patch",
